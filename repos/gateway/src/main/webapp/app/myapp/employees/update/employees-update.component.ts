@@ -40,7 +40,6 @@ export class EmployeesUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       // console.log(employee);
-
       this.employee = data.user;
       if (this.employee.employeeId === undefined) {
         this.employee.activated = true;
