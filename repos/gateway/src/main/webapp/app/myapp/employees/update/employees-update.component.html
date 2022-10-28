@@ -110,6 +110,19 @@
           </select>
         </div>
       </div>
+      <div class="form-group">
+        <label jhiTranslate="employees.managers">Managers</label>
+        <select class="form-control" multiple name="manager" formControlName="managers">
+          <option *ngFor="let manager of managers" [value]="manager.employeeId">{{ manager.firstName }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label jhiTranslate="employees.departments">Departments</label>
+        <select class="form-control" multiple name="department" formControlName="departments">
+          <option *ngFor="let department of departments" [value]="department.departmentId">{{ department.departmentName
+            }}</option>
+        </select>
+      </div>
 
       <div *ngIf="employee">
         <button type="button" class="btn btn-secondary" (click)="previousState()">

@@ -17,7 +17,7 @@ export class EmployeesDeleteDialogComponent {
     this.activeModal.dismiss();
   }
 
-  confirmDelete(login: string): void {
+  confirmDelete(login: number): void {
     this.employeeService.delete(login).subscribe(() => {
       this.activeModal.close('deleted');
     });

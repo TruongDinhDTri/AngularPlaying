@@ -3,8 +3,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { LANGUAGES } from 'app/config/language.constants';
-import { Employee } from '../employees.model';
+import { IDepartment } from 'app/myapp/deparments/departments.model';
+import { Employee, IEmployee } from '../employees.model';
 import { EmployeesService } from '../service/employees.service';
+import { DepartmentServiceService } from 'app/myapp/deparments/department-service.service';
 
 @Component({
   selector: 'jhi-employee-mgmt-update',
@@ -14,6 +16,8 @@ export class EmployeesUpdateComponent implements OnInit {
   employee!: Employee;
   languages = LANGUAGES;
   authorities: string[] = [];
+  managers: IEmployee[] = [];
+  departments: IDepartment[] = [];
   isSaving = false;
 
   editForm = this.fb.group({
@@ -33,13 +37,20 @@ export class EmployeesUpdateComponent implements OnInit {
     activated: [],
     langKey: [],
     authorities: [],
+    managers: [],
   });
 
-  constructor(private employeeService: EmployeesService, private route: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    private employeeService: EmployeesService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private departmentService: DepartmentServiceService
+  ) {}
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       // console.log(employee);
+
       this.employee = data.user;
       if (this.employee.employeeId === undefined) {
         this.employee.activated = true;
@@ -47,6 +58,10 @@ export class EmployeesUpdateComponent implements OnInit {
       this.updateForm(this.employee);
     });
     this.employeeService.authorities().subscribe(authorities => (this.authorities = authorities));
+    this.employeeService.getAll().subscribe(managers => (this.managers = managers));
+    this.departmentService.getAll().subscribe(departments => {
+      this.departments = departments;
+    });
   }
 
   previousState(): void {

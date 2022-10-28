@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { Pagination } from 'app/core/request/request.model';
-import { IEmployee } from '../employees.model';
+import { Employee, IEmployee } from '../employees.model';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeesService {
@@ -13,6 +13,9 @@ export class EmployeesService {
 
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
+  getAll(): Observable<IEmployee[]> {
+    return this.http.get<IEmployee[]>(this.resourceUrl);
+  }
   create(user: IEmployee): Observable<IEmployee> {
     return this.http.post<IEmployee>(`${this.resourceUrl}/${String(user.employeeId)}`, user);
   }
@@ -30,8 +33,8 @@ export class EmployeesService {
     return this.http.get<IEmployee[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
-  delete(login: string): Observable<{}> {
-    return this.http.delete(`${this.resourceUrl}/${login}`);
+  delete(login: number): Observable<{}> {
+    return this.http.delete(`${this.resourceUrl}/${String(login)}`);
   }
 
   authorities(): Observable<string[]> {

@@ -36,7 +36,7 @@ public class Location implements Serializable {
     @Column(name = "state_province")
     private String stateProvince;
 
-    @OneToMany(mappedBy = "location")
+    @OneToMany(mappedBy = "location", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "employees", "jobHistories", "manager", "location" }, allowSetters = true)
     private Set<Department> departments = new HashSet<>();

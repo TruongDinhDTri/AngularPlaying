@@ -37,14 +37,14 @@ export const EmployeesRoute: Routes = [
     },
   },
   {
-    path: 'new',
+    path: 'edit/:id',
     component: EmployeesUpdateComponent,
     resolve: {
       user: EmployeesResolve,
     },
   },
   {
-    path: 'edit/:id',
+    path: 'new',
     component: EmployeesUpdateComponent,
     resolve: {
       user: EmployeesResolve,

@@ -27,7 +27,7 @@ public class Region implements Serializable {
     @Column(name = "region_name")
     private String regionName;
 
-    @OneToMany(mappedBy = "region")
+    @OneToMany(mappedBy = "region", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "locations", "region" }, allowSetters = true)
     private Set<Country> countries = new HashSet<>();

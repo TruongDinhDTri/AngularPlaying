@@ -31,13 +31,13 @@ public class Job implements Serializable {
     @Column(name = "max_salary")
     private Long maxSalary;
 
-    @OneToMany(mappedBy = "job")
+    @OneToMany(mappedBy = "job", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "subEmployees", "managedDepartments", "job", "manager",
             "department" }, allowSetters = true)
     private Set<Employee> employees = new HashSet<>();
 
-    @OneToMany(mappedBy = "job")
+    @OneToMany(mappedBy = "job", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "job", "department" }, allowSetters = true)
     private Set<JobHistory> jobHistories = new HashSet<>();
